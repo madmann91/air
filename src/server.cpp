@@ -37,6 +37,8 @@ Server::Server(const Options& options)
 Server::~Server() = default;
 
 bool Server::run() {
+    if (options_.verbose)
+        spdlog::set_level(spdlog::level::debug);
     try {
         impl_ = std::make_unique<ServerImpl>(options_);
         impl_->run();
