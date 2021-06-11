@@ -55,6 +55,5 @@ int main(int argc, char** argv) {
         return 1;
 
     Server server(*options);
-    server.run();
-    return 0;
+    return server.run() ? 0 : 1;
 }

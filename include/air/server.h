@@ -1,7 +1,8 @@
 #ifndef AIR_SERVER_H
 #define AIR_SERVER_H
 
-#include <sol/scene.h>
+#include <memory>
+#include <cstdint>
 
 namespace air {
 
@@ -9,11 +10,15 @@ namespace air {
 // See https://gcc.gnu.org/bugzilla/show_bug.cgi?id=88165
 // and https://bugs.llvm.org/show_bug.cgi?id=36684
 namespace detail {
-    struct Options {
-        uint32_t port = 8800;
-        bool verbose = false;
-    };
+
+struct Options {
+    uint32_t port = 8800;
+    bool verbose = false;
+};
+
 } // namespace detail
+
+struct ServerImpl;
 
 class Server {
 public:
@@ -22,11 +27,11 @@ public:
     Server(const Options& options = {});
     ~Server();
 
-    void run();
+    bool run();
 
 private:
-    sol::Scene scene_;
     Options options_;
+    std::unique_ptr<ServerImpl> impl_;
 };
 
 } // namespace air
