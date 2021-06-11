@@ -5,16 +5,15 @@
 
 #include "air/server.h"
 
-struct Options {
-    uint32_t port = 8800;
-};
+using namespace air;
 
 static void usage() {
     std::cout
-        << "Usage: sol-air [options]\n"
+        << "Usage: air [options]\n"
         << "Available options:\n"
-        << " -h   --help    Shows this message\n"
-        << " -p   --port    Sets the server port\n";
+        << " -h   --help     Shows this message\n"
+        << " -v   --verbose  Print every message on the console\n"
+        << " -p   --port     Sets the server port\n";
 }
 
 static bool has_arg(int i, int argc, char** argv) {
@@ -25,8 +24,8 @@ static bool has_arg(int i, int argc, char** argv) {
     return true;
 }
 
-static inline std::optional<Options> parse_options(int argc, char** argv) {
-    Options options;
+static inline std::optional<Server::Options> parse_options(int argc, char** argv) {
+    Server::Options options;
     for (int i = 1; i < argc; ++i) {
         if (argv[i][0] == '-') {
             using namespace std::literals::string_view_literals;
@@ -37,6 +36,8 @@ static inline std::optional<Options> parse_options(int argc, char** argv) {
                 if (!has_arg(i, argc, argv))
                     return std::nullopt;
                 options.port = std::strtoul(argv[++i], NULL, 10);
+            } else if (argv[i] == "-v"sv || argv[i] == "--verbose"sv) {
+                options.verbose = true;
             } else {
                 std::cerr << "Unknown option '" << argv[i] << "'" << std::endl;
                 return std::nullopt;
@@ -49,13 +50,11 @@ static inline std::optional<Options> parse_options(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
-    using namespace air;
-
     auto options = parse_options(argc, argv);
     if (!options)
         return 1;
 
-    Server server(options->port);
+    Server server(*options);
     server.run();
     return 0;
 }

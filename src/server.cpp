@@ -4,18 +4,18 @@
 
 namespace air {
 
-Server::Server(uint32_t port)
-    : port_(port)
+Server::Server(const Options& options)
+    : options_(options)
 {
     // TODO
 }
 
 Server::~Server() {
-    spdlog::info("Shutting down server", port_);
+    spdlog::info("Shutting down server");
 }
 
 void Server::run() {
-    spdlog::info("Starting server on port {}", port_);
+    spdlog::info("Starting server on port {}", options_.port);
     // TODO
 }
 
