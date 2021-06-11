@@ -1,3 +1,6 @@
 [submodule "contrib/asio"]
 	path = contrib/asio
 	url = git@github.com:chriskohlhoff/asio.git
+[submodule "contrib/spdlog"]
+	path = contrib/spdlog
+	url = git@github.com:gabime/spdlog.git

@@ -1,15 +1,15 @@
-# Sol-Air
+# Air
 
 This is a rendering server for [SoL](https://github.com/madmann91/sol).
 
 ## Building
 
-In order to build Sol-Air, you're going to need a C++20-compatible compiler, CMake, and SoL.
+In order to build Air, you're going to need a C++20-compatible compiler, CMake, and SoL.
 First, make sure you have downloaded all the submodules, by running:
 
     git submodule update --init --recursive
 
-Once that is done, Sol-Air can be built using the following commands:
+Once that is done, Air can be built using the following commands:
 
     mkdir build
     cd build
